@@ -7,6 +7,7 @@ from backend.server.response import HttpResponse
 from backend.server.server import Server
 from backend.profile.handlers import handleLogin, handleSignup, handleProfile
 from backend.profile.manager import ProfileManager
+from backend.profile.session import SessionManager
 
 logger = logging.getLogger(__name__)
 
@@ -42,11 +43,12 @@ if __name__ == "__main__":
     # instantiate server and profile manager
     server = Server(ip_addr, port)
     profiles = ProfileManager()
+    sessions = SessionManager()
 
     # set handlers for our resources; ideally this would be in a config ie pyramid but this is a toy server
-    server.bindResource("/profile/login", handleLogin, profiles)
-    server.bindResource("/profile/signup", handleSignup, profiles)
-    server.bindResource("/profile", handleProfile, profiles)
+    server.bindResource("/profile/login", handleLogin, (profiles, sessions))
+    server.bindResource("/profile/signup", handleSignup, (profiles, sessions))
+    server.bindResource("/profile", handleProfile, (profiles, sessions))
 
     server.run()
 
