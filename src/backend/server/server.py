@@ -3,6 +3,8 @@ import logging
 import threading
 
 from .connection import handleConnection
+from .request import HttpRequest
+from .response import HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +29,7 @@ class Server:
                 logger.info(f"Connection accepted from {addr}")
 
                 thread = threading.Thread(
-                    target=handleConnection, args=(conn, addr)
+                    target=handleConnection, args=(self, conn, addr)
                 )
                 thread.start()
 
@@ -35,3 +37,14 @@ class Server:
         finally:
             sock.shutdown(socket.SHUT_RDWR)
             sock.close()
+
+    # VERY basic resource handling. I am not accounting for query args or path resolution (ie /api/profile/../profile == /api/profile)
+    # Obviously this is necessary for a robust server but I don't want to get too into the weeds
+    def bindResource(self, resource, handler, args):
+        self.handlers[resource] = (handler, args)
+
+    def handleRequest(self, req):
+        if req.resource in self.handlers:
+            (handler, args) = self.handlers[req.resource]
+            return handler(req, args)
+        return HttpResponse(404)

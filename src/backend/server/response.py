@@ -14,9 +14,12 @@ CODES = {
 
 class HttpResponse:
     def __init__(self, status):
-        self.headers = {}
+        self.headers = {"Content-Length": "0"}
         self.status = status
         self.content = None
+
+    def __str__(self):
+        return f'{self.status} {CODES[self.status]}'
 
     def setTextContent(self, content, content_type):
         self.content = bytes(content, 'utf-8')

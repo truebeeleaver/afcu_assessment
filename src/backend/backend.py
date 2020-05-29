@@ -1,8 +1,15 @@
 import logging
 
 from server.server import Server
+from server.request import HttpRequest
+from server.response import HttpResponse
 
 logger = logging.getLogger(__name__)
+
+def hello_world(req, state):
+    resp = HttpResponse(200)
+    resp.setTextContent("<html><body><h1>Hello World</h1></body></html>", "text/html")
+    return resp
 
 # this will be our entrypoint
 if __name__ == "__main__":
@@ -16,6 +23,10 @@ if __name__ == "__main__":
 
     #TODO move to config file
     server = Server("127.0.0.1", 8080)
+
+    # set handlers for our resources; ideally this would be in a config ie pyramid but this is a toy server
+    server.bindResource("/helloworld", hello_world, None)
+
     server.run()
 
     logger.info("Server shutting down normally")
