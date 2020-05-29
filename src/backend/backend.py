@@ -14,7 +14,8 @@ if __name__ == "__main__":
     )
     logger.info("Server starting up")
 
-    server = Server()
+    #TODO move to config file
+    server = Server("127.0.0.1", 8080)
     server.run()
 
     logger.info("Server shutting down normally")

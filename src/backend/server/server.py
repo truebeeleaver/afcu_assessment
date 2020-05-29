@@ -8,15 +8,13 @@ logger = logging.getLogger(__name__)
 
 
 class Server:
-    def __init__(self):
-        pass
+    def __init__(self, ip_addr, port):
+        self.ip_addr = ip_addr
+        self.port = port
+        self.handlers = {}
 
     # Listen until a shutdown signal is passed
     def run(self):
-        # TODO lift hardcoded stuff out into at least main module
-        self.ip_addr = "127.0.0.1"
-        self.port = 8080
-
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.ip_addr, self.port))
         sock.listen()
