@@ -9,11 +9,6 @@ from backend.profile.profile import handleLogin, handleSignup, handleProfile, Pr
 
 logger = logging.getLogger(__name__)
 
-def hello_world(req, state):
-    resp = HttpResponse(200)
-    resp.setTextContent("<html><body><h1>Hello World</h1></body></html>", "text/html")
-    return resp
-
 def print_usage():
     print("backend.py -a <address> -p <port>")
 
@@ -48,7 +43,6 @@ if __name__ == "__main__":
     profiles = ProfileManager()
 
     # set handlers for our resources; ideally this would be in a config ie pyramid but this is a toy server
-    server.bindResource("/helloworld", hello_world, None)
     server.bindResource("/profile/login", handleLogin, profiles)
     server.bindResource("/profile/signup", handleSignup, profiles)
     server.bindResource("/profile", handleProfile, profiles)
