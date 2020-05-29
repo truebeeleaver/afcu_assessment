@@ -10,7 +10,7 @@ if __name__ == "__main__":
         filename="backend.log",
         filemode="w",
         level=logging.INFO,
-        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+        format="%(asctime)s %(levelname)s %(name)s %(threadName)s %(message)s",
     )
     logger.info("Server starting up")
 
