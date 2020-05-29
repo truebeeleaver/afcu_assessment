@@ -70,6 +70,3 @@ def handleProfile(req, profiles):
     return resp
 
 
-class ProfileManager:
-    def __init__(self):
-        pass

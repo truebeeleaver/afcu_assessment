@@ -5,7 +5,8 @@ import getopt
 from backend.server.request import HttpRequest
 from backend.server.response import HttpResponse
 from backend.server.server import Server
-from backend.profile.profile import handleLogin, handleSignup, handleProfile, ProfileManager
+from backend.profile.handlers import handleLogin, handleSignup, handleProfile
+from backend.profile.manager import ProfileManager
 
 logger = logging.getLogger(__name__)
 
