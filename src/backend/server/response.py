@@ -47,3 +47,9 @@ class HttpResponse:
         if self.content:
             writer.writeBytes(self.content)
 
+    def setHeader(self, header, value):
+        current_value = self.headers.get(header)
+        if current_value:
+            self.headers[header] = f"{current_value}; {value}"
+        else:
+            self.headers[header] = value
