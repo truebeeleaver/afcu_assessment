@@ -17,7 +17,12 @@ def handleConnection(server, conn, addr):
             req = HttpRequest(buffered_conn)
             logger.info(f"Received request {req.verb} on {req.resource}")
 
-            resp = server.handleRequest(req) 
+            try:
+                resp = server.handleRequest(req) 
+            except Exception as e:
+                # don't propogate exception; handler is responsible for being exception safe, and we have no reason to close the connection
+                logger.exception(e)
+                resp = HttpResponse(500)
             
             logger.info(f"Writing response {str(resp)}")
             resp.writeResponse(buffered_conn)
@@ -25,8 +30,7 @@ def handleConnection(server, conn, addr):
     except socket.timeout:
         logger.info(f"Connection timed out with {addr}")
     except Exception as e:
-        # swallowing exceptions is Not Good in general but worker threads should terminate on any errors anyway, and we want to log instead of print to console
-        # being exception safe is up to the service code
+        # Exception must have been during server code; log and terminate this worker
         logger.exception(e)
     finally:
         conn.shutdown(socket.SHUT_RDWR)
