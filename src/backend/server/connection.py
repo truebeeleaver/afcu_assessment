@@ -1,9 +1,9 @@
 import socket
 import logging
 
-from .request import HttpRequest
-from .response import HttpResponse
-from .util import BufferedSocket
+from backend.server.request import HttpRequest
+from backend.server.response import HttpResponse
+from backend.server.util import BufferedSocket
 
 logger = logging.getLogger(__name__)
 

@@ -1,8 +1,8 @@
 import logging
 
-from server.server import Server
-from server.request import HttpRequest
-from server.response import HttpResponse
+from backend.server.request import HttpRequest
+from backend.server.response import HttpResponse
+from backend.server.server import Server
 
 logger = logging.getLogger(__name__)
 

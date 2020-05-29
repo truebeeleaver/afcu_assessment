@@ -2,9 +2,9 @@ import socket
 import logging
 import threading
 
-from .connection import handleConnection
-from .request import HttpRequest
-from .response import HttpResponse
+from backend.server.request import HttpRequest
+from backend.server.response import HttpResponse
+from backend.server.connection import handleConnection
 
 logger = logging.getLogger(__name__)
 

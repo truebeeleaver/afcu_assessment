@@ -1,6 +1,6 @@
 import logging
 
-from .util import BufferedSocket
+from backend.server.util import BufferedSocket
 
 logger = logging.getLogger(__name__)
 
