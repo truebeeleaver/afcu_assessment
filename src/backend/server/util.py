@@ -5,6 +5,15 @@ logger = logging.getLogger(__name__)
 BUFFER_SIZE = 1024
 
 
+class HttpException(Exception):
+    def __init__(self, status, message):
+        self.status = status
+        self.message = message
+
+    def __str__(self):
+        return f"HTTPException {self.status} {self.message}"
+
+
 class BufferedSocket:
     def __init__(self, conn):
         self.conn = conn

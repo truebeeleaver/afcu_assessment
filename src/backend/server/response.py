@@ -20,10 +20,10 @@ class HttpResponse:
         self.content = None
 
     def __str__(self):
-        return f'{self.status} {CODES[self.status]}'
+        return f"{self.status} {CODES[self.status]}"
 
     def setTextContent(self, content, content_type):
-        self.content = bytes(content, 'utf-8')
+        self.content = bytes(content, "utf-8")
         self.headers["Content-Type"] = content_type
         self.headers["Content-Length"] = len(self.content)
 

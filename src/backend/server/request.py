@@ -6,16 +6,14 @@ logger = logging.getLogger(__name__)
 
 BUFFER_SIZE = 1024
 
-METHODS = {
-    "GET",
-    "HEAD",
-    "POST",
-    "PUT",
-    "DELETE",
-    "CONNECT",
-    "OPTIONS",
-    "TRACE",
-}
+HTTP_GET = "GET"
+HTTP_HEAD = "HEAD"
+HTTP_POST = "POST"
+HTTP_PUT = "PUT"
+HTTP_DELETE = "DELETE"
+HTTP_CONNECT = "CONNECT"
+HTTP_OPTIONS = "OPTIONS"
+HTTP_TRACE = "TRACE"
 
 
 class HttpRequest:
@@ -24,8 +22,6 @@ class HttpRequest:
         line = reader.readLine()
         # This is cute but not very fault tolerant, but we want to abort on a malformed line anyhow
         (verb, resource, version) = line.split(" ", 2)
-        if verb not in METHODS:
-            raise ValueError(f"Invalid HTTP verb {verb}")
         # I will only support HTTP 1.1
         if version != "HTTP/1.1":
             raise ValueError(f"Invalid HTTP version {version}")
