@@ -31,7 +31,8 @@ class HttpRequest:
             raise ValueError(f"Invalid HTTP version {version}")
 
         self.verb = verb
-        self.resource = resource
+        # Ignoring query params
+        self.resource = resource.split("?", 1)[0]
         self.headers = {}
         self.content = None
 
