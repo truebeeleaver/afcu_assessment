@@ -36,7 +36,7 @@ class HttpRequest:
         line = reader.readLine()
         while line:
             (header, value) = line.split(":", 1)
-            header = header.strip()
+            header = header.strip().lower()
             value = value.strip()
             # Special case: headers can be specified multiple times; collapse to one line
             if header in self.headers:
@@ -44,8 +44,8 @@ class HttpRequest:
             self.headers[header] = value
             line = reader.readLine()
 
-        if self.headers.get("Content-Length"):
-            length = int(self.headers["Content-Length"])
+        if self.headers.get("content-length"):
+            length = int(self.headers["content-length"])
             if length < 0:
                 raise ValueError(
                     f"Request had negative content length {length}"
@@ -53,9 +53,9 @@ class HttpRequest:
             self.content = reader.readBytes(length)
 
     def getCookies(self):
-        if "Cookie" not in self.headers:
+        if "cookie" not in self.headers:
             return {} 
-        cookies = self.headers["Cookie"].split(";")
+        cookies = self.headers["cookie"].split(";")
         ret = {}
         for cookie in cookies:
             (name, value) = cookie.split("=", 1)

@@ -1,0 +1,10 @@
+<div class="widget">
+  <app-errorbanner [message]="errormessage"></app-errorbanner>
+  <ng-container *ngIf="!profile">
+    <p>Loading...</p>
+  </ng-container>
+  <ng-container *ngIf="profile">
+    <p>Hello {{profile.username}}!</p>
+    <p>Your phone number is {{profile.phone}}</p>
+  </ng-container>
+</div>

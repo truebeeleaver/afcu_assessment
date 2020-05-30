@@ -31,7 +31,7 @@ class SessionManager:
             self.sessions[cookie] = None
             profile = None
             logger.info(f"Created session {sessionIDToLog(cookie)}")
-            resp.setHeader("Set-Cookie", f"{SESSION_COOKIE}={cookie}")
+            resp.setHeader("Set-Cookie", f"{SESSION_COOKIE}={cookie}; SameSite=Strict")
         elif cookie in self.sessions:
             profile = self.sessions[cookie]
             logger.info(f"Attached to session {sessionIDToLog(cookie)}")

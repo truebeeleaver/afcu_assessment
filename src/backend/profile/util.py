@@ -17,8 +17,8 @@ def assertValidVerb(req, verbs):
 
 def assertContentType(req, content_type):
     if (
-        "Content-Type" not in req.headers
-        or req.headers["Content-Type"] != content_type
+        "content-type" not in req.headers
+        or req.headers["content-type"] != content_type
     ):
         raise sutil.HttpException(
             400, f"Unacceptable content type. Expected {content_type}"

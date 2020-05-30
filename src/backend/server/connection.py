@@ -40,6 +40,3 @@ def handleConnection(server, conn, addr):
     except Exception as e:
         # Exception must have been during server code; log and terminate this worker
         logger.exception(e)
-    finally:
-        conn.shutdown(socket.SHUT_RDWR)
-        conn.close()

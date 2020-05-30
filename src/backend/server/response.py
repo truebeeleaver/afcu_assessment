@@ -15,7 +15,7 @@ CODES = {
 
 class HttpResponse:
     def __init__(self, status):
-        self.headers = {"Content-Length": "0"}
+        self.headers = {"content-length": "0"}
         self.status = status
         self.content = None
 
@@ -24,13 +24,13 @@ class HttpResponse:
 
     def setTextContent(self, content, content_type):
         self.content = bytes(content, "utf-8")
-        self.headers["Content-Type"] = content_type
-        self.headers["Content-Length"] = len(self.content)
+        self.headers["content-type"] = content_type
+        self.headers["content-length"] = len(self.content)
 
     def setByteContent(self, content, content_type):
         self.content = content
-        self.headers["Content-Type"] = content_type
-        self.headers["Content-Length"] = len(self.content)
+        self.headers["content-type"] = content_type
+        self.headers["content-length"] = len(self.content)
 
     def writeResponse(self, writer):
         # First write the initial status line

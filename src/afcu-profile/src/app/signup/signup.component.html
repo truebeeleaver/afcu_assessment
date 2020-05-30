@@ -1,0 +1,26 @@
+<div class="widget">
+  <app-errorbanner [message]="errormessage"></app-errorbanner>
+  <h2>Enter your information to create a profile</h2>
+  <p>
+    <span class="fieldlabel">Username</span>
+    <input [(ngModel)]="username"/>
+  </p>
+  <p>
+    <span class="fieldlabel">Password</span>
+    <input [(ngModel)]="password"/>
+  </p>
+  <p>
+    <span class="fieldlabel">Confirm Password</span>
+    <input [(ngModel)]="confirm_password"/>
+  </p>
+  <p>
+    <span class="fieldlabel">Phone Number</span>
+    <input [(ngModel)]="phone"/>
+  </p>
+  <p>
+    <button (click)="doSignup()">Log in</button>
+  </p>
+  <p>
+    <a routerLink="../login" routerLinkActive="active">Have an account?</a>
+  </p> 
+</div>

@@ -18,6 +18,10 @@ class Server:
     # Listen until a shutdown signal is passed
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # Ugly, but I can't figure out why I'm not properly releasing the socket on shutdown
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
         sock.bind((self.ip_addr, self.port))
         sock.listen()
 

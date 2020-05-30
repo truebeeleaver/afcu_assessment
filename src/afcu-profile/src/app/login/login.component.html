@@ -1,0 +1,18 @@
+<div class="widget">
+  <app-errorbanner [message]="errormessage"></app-errorbanner>
+  <h2>Enter your username and password to log in</h2>
+  <p>
+    <span class="fieldlabel">Username</span>
+    <input [(ngModel)]="username"/>
+  </p>
+  <p>
+    <span class="fieldlabel">Password</span>
+    <input [(ngModel)]="password"/>
+  </p>
+  <p>
+    <button (click)="doLogin()">Log in</button>
+  </p>
+  <p>
+    <a routerLink="../signup" routerLinkActive="active">Need an account?</a>
+  </p> 
+</div>

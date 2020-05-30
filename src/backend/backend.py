@@ -46,9 +46,9 @@ if __name__ == "__main__":
     sessions = SessionManager()
 
     # set handlers for our resources; ideally this would be in a config ie pyramid but this is a toy server
-    server.bindResource("/profile/login", handleLogin, (profiles, sessions))
-    server.bindResource("/profile/signup", handleSignup, (profiles, sessions))
-    server.bindResource("/profile", handleProfile, (profiles, sessions))
+    server.bindResource("/api/profile/login", handleLogin, (profiles, sessions))
+    server.bindResource("/api/profile/signup", handleSignup, (profiles, sessions))
+    server.bindResource("/api/profile", handleProfile, (profiles, sessions))
 
     server.run()
 
