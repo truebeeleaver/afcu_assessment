@@ -39,6 +39,19 @@ def handleLogin(req, args):
     return resp
 
 
+# Log out if currently logged in
+def handleLogout(req, args):
+    logger.info(f"Processing {req.verb} on logout resource")
+    (profiles, sessions) = args
+
+    putil.assertValidVerb(req, {request.HTTP_POST})
+
+    sessions.logoutSession(req)
+
+    resp = HttpResponse(201) 
+    return resp
+
+
 # Create and log in to profile
 def handleSignup(req, args):
     logger.info(f"Processing {req.verb} on signup resource")

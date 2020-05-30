@@ -47,3 +47,8 @@ class SessionManager:
             logger.info(f"Associating user {profile.user} from session {sessionIDToLog(session_id)}")
             self.sessions[session_id] = profile
         return profile
+
+    def logoutSession(self, req):
+        cookie = req.getCookie(SESSION_COOKIE)
+        if cookie and cookie in self.sessions:
+            self.sessions[cookie] = None

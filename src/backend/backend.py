@@ -5,7 +5,7 @@ import getopt
 from backend.server.request import HttpRequest
 from backend.server.response import HttpResponse
 from backend.server.server import Server
-from backend.profile.handlers import handleLogin, handleSignup, handleProfile
+from backend.profile.handlers import handleLogin, handleSignup, handleProfile, handleLogout
 from backend.profile.manager import ProfileManager
 from backend.profile.session import SessionManager
 
@@ -49,6 +49,7 @@ if __name__ == "__main__":
     server.bindResource("/api/profile/login", handleLogin, (profiles, sessions))
     server.bindResource("/api/profile/signup", handleSignup, (profiles, sessions))
     server.bindResource("/api/profile", handleProfile, (profiles, sessions))
+    server.bindResource("/api/profile/logout", handleLogout, (profiles, sessions))
 
     server.run()
 

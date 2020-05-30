@@ -22,6 +22,14 @@ export class ProfileComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  doLogout(): void {
+    this.http.post('api/profile/logout', null)
+    .subscribe(
+      data => this.router.navigate(['login']),
+      error => this.handleError(error) 
+    );
+  }
+
   handleError(error): void {
     if (error.status == 401) {
       this.router.navigate(['login']);
