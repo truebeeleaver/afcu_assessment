@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ const httpOptions = {
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.less']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   email: string = ""
   password: string = ""
   confirm_password: string = ""
@@ -22,9 +22,6 @@ export class SignupComponent implements OnInit {
   field_errors: object = {} 
 
   constructor(private http: HttpClient, private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   checkPasswordMatch(): boolean {
     if (this.password != this.confirm_password) {
