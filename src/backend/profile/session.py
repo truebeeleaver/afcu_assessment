@@ -2,14 +2,14 @@ import logging
 import uuid
 import hashlib
 
-from backend.profile.manager import ProfileManager
+from backend.profile.manager import ProfileManager, Profile
 
 logger = logging.getLogger(__name__)
 
 SESSION_COOKIE = "session_token"
 
 def sessionIDToLog(session_id):
-    # We really shouldn't be logging out user session cookies, but we want stable IDs
+    # Do not log out cookies
     return hashlib.md5(bytes(session_id, "utf-8")).hexdigest()
 
 class SessionManager:
@@ -36,15 +36,15 @@ class SessionManager:
             profile = self.sessions[cookie]
             logger.info(f"Attached to session {sessionIDToLog(cookie)}")
             if profile:
-                logger.info(f"Authenticated as user {profile.user}")
+                logger.info(f"Authenticated as user {profile.email}")
         return (cookie, profile)
 
-    def authenticateSession(self, profiles, session_id, username, password):
-        profile = profiles.getProfileWithPassword(username, password)
+    def authenticateSession(self, profiles, session_id, email, password):
+        profile = profiles.getProfileWithPassword(email, password)
         if profile:
             if self.sessions[session_id]:
-                logger.info(f"Disassociating user {self.sessions[session_id].user} from session {sessionIDToLog(session_id)}")
-            logger.info(f"Associating user {profile.user} from session {sessionIDToLog(session_id)}")
+                logger.info(f"Disassociating user {self.sessions[session_id].email} from session {sessionIDToLog(session_id)}")
+            logger.info(f"Associating user {profile.email} to session {sessionIDToLog(session_id)}")
             self.sessions[session_id] = profile
         return profile
 

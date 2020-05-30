@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ErrorbannerComponent } from '../errorbanner/errorbanner.component'; 
 
 interface Profile {
-  username: string;
+  email: string;
   phone: string;
 }
 

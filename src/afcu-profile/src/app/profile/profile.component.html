@@ -4,7 +4,7 @@
     <p>Loading...</p>
   </ng-container>
   <ng-container *ngIf="profile">
-    <p>Hello {{profile.username}}!</p>
+    <h2>Hello {{profile.email}}!</h2>
     <p>Your phone number is {{profile.phone}}</p>
   </ng-container>
   <a routerLink="" (click)="doLogout()">Log out</a>

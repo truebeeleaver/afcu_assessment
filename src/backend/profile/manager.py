@@ -10,14 +10,14 @@ class ProfileError(Exception):
         return f"ProfileError {self.errors}"
 
 class Profile:
-    def __init__(self, user, pwd, phone):
-        self.user = user
+    def __init__(self, email, password, phone):
+        self.email = email
         # TODO store hash of salted password!
         # NB: I would not ever write crypto code myself, but to simplify setup of this project I don't want to use scrypt either
-        self.pwd = pwd 
+        self.password = password
         self.phone = phone
 
-def validateAddress(address):
+def validateEmail(address):
     # Don't get too in the weeds here--just check for '@' and a domain
     # Honestly the only real validation is to try to send mail.
     if not address:
@@ -27,8 +27,8 @@ def validateAddress(address):
         return False
     return True
 
-def validatePassword(pwd):
-    if not pwd or pwd == 'swordfish':
+def validatePassword(password):
+    if not password or password == 'swordfish':
         return False
     return True
 
@@ -46,15 +46,15 @@ class ProfileManager:
         # TODO get rid of this sample data once we have perstitence
         self.profiles["foo@example.com"] = Profile("foo@example.com", "bar", "8675309")
 
-    def register(self, user, pwd, phone):
+    def register(self, email, password, phone):
         errors = {}
 
-        if user in self.profiles:
-            errors["username"] = "Username is unavailable"
-        elif not validateAddress(user):
-            errors["username"] = "Username is not a valid email address"
+        if email in self.profiles:
+            errors["email"] = "Email is unavailable"
+        elif not validateEmail(email):
+            errors["email"] = "Email address is not valid"
 
-        if not validatePassword(pwd):
+        if not validatePassword(password):
             errors["password"] = "Insufficiently strong password"
 
         if not validatePassword(phone):
@@ -64,20 +64,20 @@ class ProfileManager:
         if errors:
             raise ProfileError(errors)
 
-        profile = Profile(user, pwd, phone)
-        self.profiles[user] = profile
+        profile = Profile(email, password, phone)
+        self.profiles[email] = profile
 
         return profile
 
-    def getProfile(self, user):
-        return self.profiles.get(user)
+    def getProfile(self, email):
+        return self.profiles.get(email)
 
-    def getProfileWithPassword(self, user, password):
-        profile = self.profiles.get(user)
+    def getProfileWithPassword(self, email, password):
+        profile = self.profiles.get(email)
         if profile:
-            if profile.pwd == password:
+            if profile.password == password:
                 return profile
         if not profile:
-            logger.warn(f"Invalid login attempt for user {user}")
+            logger.warn(f"Invalid login attempt for user {email}")
         return None
 

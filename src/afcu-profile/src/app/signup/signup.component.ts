@@ -14,7 +14,7 @@ const httpOptions = {
   styleUrls: ['./signup.component.less']
 })
 export class SignupComponent implements OnInit {
-  username: string = ""
+  email: string = ""
   password: string = ""
   confirm_password: string = ""
   phone: string = ""
@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
     if (!this.checkPasswordMatch()) {
       return;
     }
-    var profile = { "username" : this.username, "password" : this.password, "phone" : this.phone };
+    var profile = { "email" : this.email, "password" : this.password, "phone" : this.phone };
     this.http.post('api/profile/signup', profile, httpOptions)
     .subscribe(
       data => this.handleSignup(data),

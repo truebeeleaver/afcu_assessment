@@ -14,7 +14,7 @@ const httpOptions = {
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
-  username: string = ""
+  email: string = ""
   password: string = ""
   errormessage: string = ""
 
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(): void {
-    var auth = { "username" : this.username, "password" : this.password };
+    var auth = { "email" : this.email, "password" : this.password };
     this.http.post('api/profile/login', auth, httpOptions)
     .subscribe(
       data => this.handleLogin(data),
@@ -36,9 +36,13 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['']);
   }
 
-  handleError(error): void {
-    console.error(error);
-    this.errormessage = "An unexpected error has occurred.";
+  handleError(resp): void {
+    if (resp.status == 401) {
+      this.errormessage = "Login attempt unsuccessful.";
+    } else {
+      console.error(resp);
+      this.errormessage = "An unexpected error has occurred.";
+    }
   }
 
 }

@@ -2,11 +2,11 @@
   <app-errorbanner [message]="errormessage"></app-errorbanner>
   <h2>Enter your information to create a profile</h2>
   <p>
-    <span class="fieldlabel">Username</span>
-    <input [(ngModel)]="username"/>
+    <span class="fieldlabel">Email</span>
+    <input [(ngModel)]="email"/>
   </p>
-  <div *ngIf="field_errors.hasOwnProperty('username')" class="fielderror">
-    {{field_errors['username']}}
+  <div *ngIf="field_errors.hasOwnProperty('email')" class="fielderror">
+    {{field_errors['email']}}
   </div>
   <p>
     <span class="fieldlabel">Password</span>
