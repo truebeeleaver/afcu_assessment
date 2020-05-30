@@ -19,13 +19,24 @@ export class SignupComponent implements OnInit {
   confirm_password: string = ""
   phone: string = ""
   errormessage: string = ""
+  field_errors: object = {} 
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
+
+  checkPasswordMatch(): void {
+    if (this.password != this.confirm_password) {
+      this.field_errors.password = "Password does not match";  
+      return false;
+    }
+  }
   
   doSignup(): void {
+    if (!this.checkPasswordMatch()) {
+      return;
+    }
     var profile = { "username" : this.username, "password" : this.password, "phone" : this.phone };
     this.http.post('api/profile/signup', profile, httpOptions)
     .subscribe(
@@ -38,9 +49,14 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['']);
   }
 
-  handleError(error): void {
-    console.error(error);
-    this.errormessage = "An unexpected error has occurred.";
+  handleError(resp): void {
+    if (resp.error.field_errors) {
+      this.errormessage = "Sign up failed.";
+      this.field_errors = { ...resp.error.field_errors };
+    } else {
+      console.error(resp);
+      this.errormessage = "An unexpected error has occurred.";
+    }
   }
 
 }

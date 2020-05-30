@@ -5,20 +5,29 @@
     <span class="fieldlabel">Username</span>
     <input [(ngModel)]="username"/>
   </p>
+  <p *ngIf="field_errors && field_errors.username" class="fielderror">
+    {{field_errors.username}}
+  </p>
   <p>
     <span class="fieldlabel">Password</span>
-    <input [(ngModel)]="password"/>
+    <input [(ngModel)]="password" type="password"/>
   </p>
   <p>
     <span class="fieldlabel">Confirm Password</span>
-    <input [(ngModel)]="confirm_password"/>
+    <input [(ngModel)]="confirm_password" type="password"/>
+  </p>
+  <p *ngIf="field_errors && field_errors.password" class="fielderror">
+    {{field_errors.password}}
   </p>
   <p>
     <span class="fieldlabel">Phone Number</span>
     <input [(ngModel)]="phone"/>
   </p>
+  <p *ngIf="field_errors && field_errors.phone" class="fielderror">
+    {{field_errors.phone}}
+  </p>
   <p>
-    <button (click)="doSignup()">Log in</button>
+    <button (click)="doSignup()">Sign up</button>
   </p>
   <p>
     <a routerLink="../login" routerLinkActive="active">Have an account?</a>

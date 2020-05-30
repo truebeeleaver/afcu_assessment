@@ -6,6 +6,7 @@ import backend.server.util as sutil
 import backend.profile.util as putil
 import backend.profile.session as session
 
+from backend.profile.manager import ProfileError
 from backend.server.response import HttpResponse
 
 logger = logging.getLogger(__name__)
@@ -45,29 +46,25 @@ def handleSignup(req, args):
 
     putil.assertValidVerb(req, {request.HTTP_POST})
     putil.assertContentType(req, "application/json")
-
     content = putil.getJsonContent(req)
-    if (
-        "username" not in content
-        or "password" not in content
-        or "phone" not in content
-    ):
-        # Missing required fields
-        raise sutil.HttpException(
-            400, "Expected username, password, and phone fields"
-        )
-    username = content["username"]
-    password = content["password"]
-    phone = content["phone"]
 
+    username = content.get("username")
+    password = content.get("password")
+    phone = content.get("phone")
 
     resp = HttpResponse(201)
 
     (session_id, profile) = sessions.getSessionIDAndProfile(req, resp)
     
     # if we are already authenticated, that's fine--make a new profile and log in as that user
-    profile = profiles.register(username, password, phone)
-    sessions.authenticateSession(profiles, session_id, username, password)
+    try:
+        profile = profiles.register(username, password, phone)
+        sessions.authenticateSession(profiles, session_id, username, password)
+    except ProfileError as e:
+        resp.status = 400
+        resp.setTextContent(
+            json.dumps({"field_errors": e.errors}), "application/json"
+        )
 
     return resp
 
