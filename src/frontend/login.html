@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Log in</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"></link>
+  </head>
+  <script src="login.js"></script>
+  <body>
+    <div class="widget">
+      <div class="errorbanner" id="error" hidden="true"></div>
+      <h2>Enter your email and password to log in</h2>
+      <p>
+        <span class="fieldlabel">Email</span>
+        <input name="email" id="email"/>
+      </p>
+      <p>
+        <span class="fieldlabel">Password</span>
+        <input name="password" type="password" id="password"/>
+      </p>
+      <p>
+        <button onClick="doLogin()">Log in</button>
+      </p>
+      <p>
+        <a href="signup">Need an account?</a>
+      </p> 
+    </div>
+  </body>
+</html>

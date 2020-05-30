@@ -30,4 +30,4 @@ def getJsonContent(req):
     try:
         return json.loads(str(req.content, "utf8"))
     except json.decoder.JSONDecodeError as e:
-        raise sutil.HttpException(400, f"Invalid JSON: {str(e)}")
+        raise sutil.HttpException(400, f"Invalid JSON: {str(e)}; content={str(req.content)}")

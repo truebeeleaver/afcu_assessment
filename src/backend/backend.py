@@ -5,6 +5,7 @@ import getopt
 from backend.server.request import HttpRequest
 from backend.server.response import HttpResponse
 from backend.server.server import Server
+from backend.server.file import handleFileGet
 from backend.profile.handlers import handleLogin, handleSignup, handleProfile, handleLogout
 from backend.profile.manager import ProfileManager
 from backend.profile.session import SessionManager
@@ -50,6 +51,15 @@ if __name__ == "__main__":
     server.bindResource("/api/profile/signup", handleSignup, (profiles, sessions))
     server.bindResource("/api/profile", handleProfile, (profiles, sessions))
     server.bindResource("/api/profile/logout", handleLogout, (profiles, sessions))
+
+    # set handlers for our raw HTML/CSS/JS implementation, to get files
+    server.bindResource("/profile", handleFileGet, ("frontend/profile.html", "text/html; charset=utf-8"))
+    server.bindResource("/profile.js", handleFileGet, ("frontend/profile.js", "application/javascript; charset=utf-8"))
+    server.bindResource("/login", handleFileGet, ("frontend/login.html", "text/html; charset=utf-8"))
+    server.bindResource("/login.js", handleFileGet, ("frontend/login.js", "application/javascript; charset=utf-8"))
+    server.bindResource("/signup", handleFileGet, ("frontend/signup.html", "text/html; charset=utf-8"))
+    server.bindResource("/signup.js", handleFileGet, ("frontend/signup.js", "application/javascript; charset=utf-8"))
+    server.bindResource("/styles.css", handleFileGet, ("frontend/styles.css", "text/css; charset=utf-8"))
 
     server.run()
 

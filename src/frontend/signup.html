@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"></link>
+  </head>
+  <script src="signup.js"></script>
+  <body>
+    <div class="widget">
+      <div class="errorbanner" id="error" hidden="true"></div>
+      <h2>Enter your information to create a profile</h2>
+      <p>
+        <span class="fieldlabel">Email</span>
+        <input name="email" id="email"/>
+      </p>
+      <div class="fielderror" hidden="true" id="error_email"></div>
+      <p>
+        <span class="fieldlabel" id="password">Password</span>
+        <input name="password" type="password" id="password_box"/>
+      </p>
+      <p>
+        <span class="fieldlabel">Confirm Password</span>
+        <input name="password_confirm" type="password" id="password_confirm"/>
+      </p>
+      <div class="fielderror" hidden="true" id="error_password"></div>
+      <p>
+        <span class="fieldlabel">Phone Number</span>
+        <input name="phone" id="phone"/>
+      </p>
+      <div class="fielderror" hidden="true" id="error_phone"></div>
+      <p>
+        <button onClick="doSignup()">Sign up</button>
+      </p>
+      <p>
+        <a href"login">Have an account?</a>
+      </p> 
+    </div>
+  </body>
+</html>
