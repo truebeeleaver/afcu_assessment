@@ -26,11 +26,12 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkPasswordMatch(): void {
+  checkPasswordMatch(): boolean {
     if (this.password != this.confirm_password) {
-      this.field_errors.password = "Password does not match";  
+      this.field_errors['password'] = "Password does not match";  
       return false;
     }
+    return true;
   }
   
   doSignup(): void {

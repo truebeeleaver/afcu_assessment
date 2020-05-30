@@ -5,9 +5,9 @@
     <span class="fieldlabel">Username</span>
     <input [(ngModel)]="username"/>
   </p>
-  <p *ngIf="field_errors && field_errors.username" class="fielderror">
-    {{field_errors.username}}
-  </p>
+  <div *ngIf="field_errors.hasOwnProperty('username')" class="fielderror">
+    {{field_errors['username']}}
+  </div>
   <p>
     <span class="fieldlabel">Password</span>
     <input [(ngModel)]="password" type="password"/>
@@ -16,16 +16,16 @@
     <span class="fieldlabel">Confirm Password</span>
     <input [(ngModel)]="confirm_password" type="password"/>
   </p>
-  <p *ngIf="field_errors && field_errors.password" class="fielderror">
-    {{field_errors.password}}
-  </p>
+  <div *ngIf="field_errors.hasOwnProperty('password')" class="fielderror">
+    {{field_errors['password']}}
+  </div>
   <p>
     <span class="fieldlabel">Phone Number</span>
     <input [(ngModel)]="phone"/>
   </p>
-  <p *ngIf="field_errors && field_errors.phone" class="fielderror">
-    {{field_errors.phone}}
-  </p>
+  <div *ngIf="field_errors.hasOwnProperty('phone')" class="fielderror">
+    {{field_errors['phone']}}
+  </div>
   <p>
     <button (click)="doSignup()">Sign up</button>
   </p>
