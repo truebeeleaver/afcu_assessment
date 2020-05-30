@@ -12,5 +12,3 @@ From the `src/afcu-assessment` directory:
 
 `ng serve --open --proxy-config proxy.conf.json`
 
-## Caveats
-I have not implemented persistence, so if the backend is restarted then all data will be lost. By default, the user "foo@example.com" with the password "bar" exists.
