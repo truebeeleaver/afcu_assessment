@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def handleConnection(server, conn, addr):
+    conn.settimeout(5)
     try:
         buffered_conn = BufferedSocket(conn)
 
