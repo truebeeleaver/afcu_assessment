@@ -43,8 +43,6 @@ class ProfileManager:
         logger.info("Initializing profile manager")
         self.profiles = {}
 
-        # TODO get rid of this sample data once we have perstitence
-        self.profiles["foo@example.com"] = Profile("foo@example.com", "bar", "8675309")
 
     def register(self, email, password, phone):
         errors = {}

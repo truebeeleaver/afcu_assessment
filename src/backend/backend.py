@@ -47,6 +47,9 @@ if __name__ == "__main__":
     profiles = ProfileManager()
     sessions = SessionManager()
 
+    # sample data
+    profiles.register("foo@example.com", "bar", "8675309")
+
     # set handlers for our resources; ideally this would be in a config ie pyramid but this is a toy server
     server.bindResource("/api/profile/login", handleLogin, (profiles, sessions))
     server.bindResource("/api/profile/signup", handleSignup, (profiles, sessions))
