@@ -44,7 +44,6 @@ class Server:
 
         logger.info(f"Listening on {self.ip_addr}:{self.port}")
 
-        threads = []
         try:
             (conn, addr) = _doAccept(sock)
             while not self.close_event.is_set():
@@ -54,12 +53,9 @@ class Server:
                     thread = threading.Thread(
                         target=handleConnection, args=(self, conn, addr)
                     )
+                    thread.deamon = True
                     thread.start()
-                    threads.append(thread)
 
-                    for _thread in threads:
-                        _thread.join(0)
-                    threads = list(filter(lambda t: t.isAlive(), threads))
                 (conn, addr) = _doAccept(sock)
             logger.info("Server terminating")
         finally:

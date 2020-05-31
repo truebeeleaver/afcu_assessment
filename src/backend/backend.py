@@ -69,9 +69,5 @@ if __name__ == "__main__":
     input(f"Server running on {ip_addr}:{port}. Press Enter to terminate.")
     server.stop()
 
-    for thread in threading.enumerate():
-        if not thread == threading.main_thread():
-            thread.join()
-
     logger.info("Server shutting down normally")
 
