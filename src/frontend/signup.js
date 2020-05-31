@@ -1,14 +1,44 @@
 function doSignup() {
-  errorbanner = document.getElementById("error");
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password_box").value;
+  var password_confirm = document.getElementById("password_confirm").value;
+  var phone = document.getElementById("phone").value;
+  _doSignup(email, password, password_confirm, phone);
+}
+
+function _resetErrors() {
+  var errorbanner = document.getElementById("error");
   errorbanner.hidden = true;
-  email = document.getElementById("email").value;
-  password = document.getElementById("password_box").value;
-  password_confirm = document.getElementById("password_confirm").value;
-  phone = document.getElementById("phone").value;
+
+  var email_error = document.getElementById("error_email");
+  email_error.hidden = true;
+  var password_error = document.getElementById("error_password");
+  password_error.hidden = true;
+  var phone_error = document.getElementById("error_phone");
+  phone_error.hidden = true;
+}
+
+function _displayError(field, message) {
+  if (!field) {
+    var errorbanner = document.getElementById("error");
+    errorbanner.hidden = false;
+    errorbanner.innerHTML = message;
+  } else {
+    fielderror = document.getElementById("error_" + field);
+    if (fielderror) {
+      fielderror.hidden = false;
+      fielderror.innerHTML = message;
+    } else {
+      console.error(message);
+    }
+  }
+}
+
+function _doSignup(email, password, password_confirm, phone) {
+  _resetErrors();
 
   if (password != password_confirm) {
-    errorbanner.hidden = false;
-    errorbanner.innerHTML = "Password does not match.";
+    _displayError("password", "Password does not match.");
     return;
   }
 
@@ -22,22 +52,15 @@ function doSignup() {
       } else {
         resp = JSON.parse(this.responseText);
         if (resp.hasOwnProperty("field_errors")) {
-          errorbanner.hidden = true;
-          var errors = resp['field_errors'];
+          var errors = resp["field_errors"];
           for (var prop in errors) {
             // Unashamed that I stackoverflow'd this; JS is crazy
             if (Object.prototype.hasOwnProperty.call(errors, prop)) {
-              var id = "error_" + prop;
-              var field_error = document.getElementById(id);
-              if (field_error) {
-                field_error.hidden = false;
-                field_error.innerHTML = errors[prop];
-              }
+              _displayError(prop, errors[prop]);
             }
           }
         } else {
-          errorbanner.hidden = false;
-          errorbanner.innerHTML = "An unexpected error has occurred.";
+          _displayError(null, "An unexpected error has occurred.");
           console.error(this);
         }
       }

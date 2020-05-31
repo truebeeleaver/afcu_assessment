@@ -1,8 +1,23 @@
 function doLogin() {
-  errorbanner = document.getElementById("error");
-  errorbanner.hidden = true;
   email = document.getElementById("email").value;
   password = document.getElementById("password").value;
+  _doLogin(email, password);
+}
+
+function _resetErrors() {
+  var errorbanner = document.getElementById("error");
+  errorbanner.hidden = true;
+}
+
+function _displayError(message) {
+  var errorbanner = document.getElementById("error");
+  errorbanner.hidden = false;
+  errorbanner.innerHTML = message;
+}
+
+function _doLogin(email, password) {
+  _resetErrors();
+  
   content = {"email": email, "password": password};
 
   var xhr = new XMLHttpRequest();
@@ -11,11 +26,9 @@ function doLogin() {
       if (this.status == 201) {
         document.location = "profile";
       } else if (this.status == 401) {
-        errorbanner.hidden = false;
-        errorbanner.innerHTML = "Login attempt unsuccessful.";
+        _displayError("Login attempt unsuccessful.");
       } else {
-        errorbanner.hidden = false;
-        errorbanner.innerHTML = "An unexpected error has occurred.";
+        _displayError("An unexpected error has occurred.");
         console.error(this);
       }
     }

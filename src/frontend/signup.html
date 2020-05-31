@@ -7,29 +7,31 @@
   <body>
     <div class="widget">
       <div class="errorbanner" id="error" hidden="true"></div>
-      <h2>Enter your information to create a profile</h2>
-      <p>
-        <span class="fieldlabel">Email</span>
-        <input name="email" id="email"/>
-      </p>
-      <div class="fielderror" hidden="true" id="error_email"></div>
-      <p>
-        <span class="fieldlabel" id="password">Password</span>
-        <input name="password" type="password" id="password_box"/>
-      </p>
-      <p>
-        <span class="fieldlabel">Confirm Password</span>
-        <input name="password_confirm" type="password" id="password_confirm"/>
-      </p>
-      <div class="fielderror" hidden="true" id="error_password"></div>
-      <p>
-        <span class="fieldlabel">Phone Number</span>
-        <input name="phone" id="phone"/>
-      </p>
-      <div class="fielderror" hidden="true" id="error_phone"></div>
-      <p>
-        <button onClick="doSignup()">Sign up</button>
-      </p>
+      <form onsubmit="doSignup(); return false;" method="post" action="#">
+        <h2>Enter your information to create a profile</h2>
+        <p>
+          <span class="fieldlabel">Email</span>
+          <input name="email" id="email" class="textfield"/>
+        </p>
+        <div class="fielderror" hidden="true" id="error_email"></div>
+        <p>
+          <span class="fieldlabel" id="password">Password</span>
+          <input name="password" type="password" id="password_box" class="textfield"/>
+        </p>
+        <p>
+          <span class="fieldlabel">Confirm Password</span>
+          <input name="password_confirm" type="password" id="password_confirm" class="textfield"/>
+        </p>
+        <div class="fielderror" hidden="true" id="error_password"></div>
+        <p>
+          <span class="fieldlabel">Phone Number</span>
+          <input name="phone" id="phone" class="textfield"/>
+        </p>
+        <div class="fielderror" hidden="true" id="error_phone"></div>
+        <p>
+          <input type="submit" value="Sign Up"/>
+        </p>
+      </form>
       <p>
         <a href"login">Have an account?</a>
       </p> 
