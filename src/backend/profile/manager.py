@@ -1,4 +1,5 @@
 import logging
+from threading import RLock
 
 logger = logging.getLogger(__name__)
 
@@ -42,40 +43,43 @@ class ProfileManager:
     def __init__(self):
         logger.info("Initializing profile manager")
         self.profiles = {}
-
+        self.lock = RLock()
 
     def register(self, email, password, phone):
-        errors = {}
+        with self.lock:
+            errors = {}
 
-        if email in self.profiles:
-            errors["email"] = "Email is unavailable"
-        elif not validateEmail(email):
-            errors["email"] = "Email address is not valid"
+            if email in self.profiles:
+                errors["email"] = "Email is unavailable"
+            elif not validateEmail(email):
+                errors["email"] = "Email address is not valid"
 
-        if not validatePassword(password):
-            errors["password"] = "Insufficiently strong password"
+            if not validatePassword(password):
+                errors["password"] = "Insufficiently strong password"
 
-        if not validatePassword(phone):
-            errors["phone"] = "Invalid phone number"
+            if not validatePassword(phone):
+                errors["phone"] = "Invalid phone number"
 
-        # Return complete set of validation errors
-        if errors:
-            raise ProfileError(errors)
+            # Return complete set of validation errors
+            if errors:
+                raise ProfileError(errors)
 
-        profile = Profile(email, password, phone)
-        self.profiles[email] = profile
+            profile = Profile(email, password, phone)
+            self.profiles[email] = profile
 
-        return profile
+            return profile
 
     def getProfile(self, email):
-        return self.profiles.get(email)
+        with self.lock:
+            return self.profiles.get(email)
 
     def getProfileWithPassword(self, email, password):
-        profile = self.profiles.get(email)
-        if profile:
-            if profile.password == password:
-                return profile
-        if not profile:
-            logger.warn(f"Invalid login attempt for user {email}")
-        return None
+        with self.lock:
+            profile = self.profiles.get(email)
+            if profile:
+                if profile.password == password:
+                    return profile
+            if not profile:
+                logger.warn(f"Invalid login attempt for user {email}")
+            return None
 
